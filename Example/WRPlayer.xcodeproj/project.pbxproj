@@ -13,6 +13,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		A588BB12798856A8361504E5 /* Pods_WRPlayer_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E1D385045483AB99DD27242 /* Pods_WRPlayer_Example.framework */; };
+		BB47F26B25CCD37D00F886FB /* IMG_1140.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = BB47F26A25CCD37D00F886FB /* IMG_1140.mp4 */; };
 		BBCF1F5B25CA4030004439D9 /* 放牛歌.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BBCF1F5A25CA4030004439D9 /* 放牛歌.mp3 */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9A50C4D60B6DA25149EC03BB /* WRPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = WRPlayer.podspec; path = ../WRPlayer.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E1D385045483AB99DD27242 /* Pods_WRPlayer_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WRPlayer_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB47F26A25CCD37D00F886FB /* IMG_1140.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_1140.mp4; sourceTree = "<group>"; };
 		BBCF1F5A25CA4030004439D9 /* 放牛歌.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "放牛歌.mp3"; sourceTree = "<group>"; };
 		DF903C7B3C7AF69AB5EEEE12 /* Pods-WRPlayer_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WRPlayer_Example.debug.xcconfig"; path = "Target Support Files/Pods-WRPlayer_Example/Pods-WRPlayer_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		FCD5F74E5C9DBD731A20B7F4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				BBCF1F5A25CA4030004439D9 /* 放牛歌.mp3 */,
+				BB47F26A25CCD37D00F886FB /* IMG_1140.mp4 */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				BBCF1F5B25CA4030004439D9 /* 放牛歌.mp3 in Resources */,
+				BB47F26B25CCD37D00F886FB /* IMG_1140.mp4 in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
