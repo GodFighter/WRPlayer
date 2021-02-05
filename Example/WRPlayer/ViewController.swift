@@ -18,24 +18,25 @@ class ViewController: UIViewController {
         
         player.delegate = self
 //        player.url = URL(string: "http://satellitepull.cnr.cn/live/wx32nmgyygb/playlist.m3u8")!
-        player.url = Bundle.main.url(forResource: "放牛歌", withExtension: "mp3")
-//        player.url = Bundle.main.url(forResource: "IMG_1140", withExtension: "MOV")
-        player.playerView.frame = view.bounds
+//        player.url = URL(string: "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8")!
+        
+//        player.url = Bundle.main.url(forResource: "放牛歌", withExtension: "mp3")
+        player.url = Bundle.main.url(forResource: "IMG_1140", withExtension: "mp4")
+        
+        player.playerView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(player.playerView, at: 0)
+        NSLayoutConstraint.activate([
+            player.playerView.topAnchor.constraint(equalTo: view.topAnchor),
+            player.playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            player.playerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            player.playerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func action_play(_ sender: Any) {
-        switch player.status {
-        case .playing:
-            player.pause()
-        default:
-            player.play()
-        }
     }
 }
 
@@ -43,7 +44,7 @@ class ViewController: UIViewController {
 fileprivate typealias PlayerDelegate = ViewController
 extension PlayerDelegate : WRPlayerDeletate{
     func playerPlayStatusDidChange(_ player: WRPlayer) {
-        print(player.status)
+//        print(player.status)
     }
     
     func playerPlayTimeDidChange(_ player: WRPlayer) {

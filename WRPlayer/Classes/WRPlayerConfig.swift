@@ -60,7 +60,7 @@ public extension Enum {
     }
     
     /// 播放器状态枚举
-    enum PlayStatus: Int, CustomStringConvertible {
+    @objc enum PlayStatus: Int, CustomStringConvertible {
         case none   = 0
         case playing
         case paused

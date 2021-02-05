@@ -47,11 +47,12 @@ open class WRPlayer: NSObject {
     }
     
     /// 播放器状态
-    open private(set) var status: WRPlayer.PlayStatus = .none {
+    @objc dynamic open private(set) var status: WRPlayer.PlayStatus = .none {
         didSet {
             guard status != oldValue else { return }
             
             WRPlayer.ExecuteClosureOnMainQueueIfNecessary {
+                self.playerView.refresh(playerStatus: self.status)
                 self.delegate?.playerPlayStatusDidChange(self)
             }
         }
@@ -74,7 +75,7 @@ public extension Info {
     var duration: TimeInterval {
         get {
             guard let item = _avplayerItem else { return CMTimeGetSeconds(.indefinite) }
-            return CMTimeGetSeconds(item.currentTime())
+            return CMTimeGetSeconds(item.duration)
         }
     }
     
@@ -87,14 +88,11 @@ public extension Info {
     
     var naturalSize: CGSize {
         get {
-            if let playerItem = _avplayerItem,
-                let track = playerItem.asset.tracks(withMediaType: .video).first {
-
-                let size = track.naturalSize.applying(track.preferredTransform)
-                return CGSize(width: abs(size.width), height: abs(size.height))
-            } else {
-                return CGSize.zero
-            }
+            guard let item = _avplayerItem else { return .zero }
+            guard let track = item.asset.tracks(withMediaType: .video).first else { return .zero }
+            
+            let size = track.naturalSize.applying(track.preferredTransform)
+            return CGSize(width: abs(size.width), height: abs(size.height))
         }
     }
     
@@ -124,9 +122,7 @@ fileprivate extension Private {
         
         _avplayerItem = avplayerItem
         _avPlayer.replaceCurrentItem(with: _avplayerItem)
-        if _avplayerItem?.asset.assetType == .video {
-            _playerView.player = _avPlayer
-        }
+        _playerView.player = _avPlayer
     }
     
 
@@ -165,7 +161,11 @@ fileprivate extension Observer {
 
                 let error: Error? = {
                     switch item.status {
-                    case .readyToPlay : return nil
+                    case .readyToPlay :
+                        print("self.naturalSize = ", self.naturalSize)
+                        self.playerView.toolView.setDuration(self.duration)
+                        self.playerView.toolView.refresh(playTime: self.currentTime, totalTime: self.duration)
+                        return nil
                     case .failed      : return PlayerError.Item.failed
                     case .unknown     : return PlayerError.Item.unknown
                     @unknown default  : return PlayerError.Item.unknown
@@ -186,6 +186,7 @@ fileprivate extension Observer {
                     if self._lastBufferTime != bufferedTime {
                         self._lastBufferTime = bufferedTime
                         WRPlayer.ExecuteClosureOnMainQueueIfNecessary {
+                            self.playerView.bufferProgress = Float(bufferedTime / self.duration)
                             self.delegate?.player?(self, didChangedBufferTime: bufferedTime)
                         }
                     }
@@ -210,9 +211,10 @@ fileprivate extension Observer {
     func _addPlayerObservers() {
         _playerTimeObserver = _avPlayer.addPeriodicTimeObserver(forInterval: CMTime.init(value: 1, timescale: 1), queue: DispatchQueue.main, using: { [weak self] (time) in
             guard let `self` = self else { return }
+            self.playerView.toolView.refresh(playTime: self.currentTime, totalTime: self.duration)
             self.delegate?.playerPlayTimeDidChange?(self)
         })
-        
+                
         // 监听AVPlayer是否在播放状态
         // iOS 10.0以下通过监控 Rate 来判断是否正在播放
         if #available(iOS 10.0, tvOS 10.0, *) {
